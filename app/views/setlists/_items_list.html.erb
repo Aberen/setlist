@@ -1,0 +1,57 @@
+<div id="setlist-items-content">
+  <%# Duration bar %>
+  <% total = setlist.total_duration_formatted %>
+  <% coverage = setlist.duration_coverage %>
+  <% song_count = items.count(&:song?) %>
+  <% comment_count = items.count(&:comment?) %>
+
+  <% if items.any? %>
+    <div class="duration-bar">
+      <div class="duration-bar-inner">
+        <div class="duration-stat">
+          <span class="duration-label">Set Duration</span>
+          <span class="duration-value">
+            <% if total %>
+              <%= total %>
+              <% if coverage < 100 %>
+                <span class="duration-coverage">(<%= coverage %>% timed)</span>
+              <% end %>
+            <% else %>
+              <span class="duration-empty">—</span>
+            <% end %>
+          </span>
+        </div>
+        <div class="duration-stat">
+          <span class="duration-label">Songs</span>
+          <span class="duration-value"><%= song_count %></span>
+        </div>
+        <div class="duration-stat">
+          <span class="duration-label">Breaks</span>
+          <span class="duration-value"><%= comment_count %></span>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <%# Sortable list %>
+  <% if items.any? %>
+    <ol class="setlist-items-list"
+        id="sortable-list"
+        data-controller="setlist-editor"
+        data-setlist-editor-setlist-id-value="<%= setlist.id %>">
+      <% song_number = 0 %>
+      <% items.each do |item| %>
+        <% if item.song? %>
+          <% song_number += 1 %>
+          <%= render "setlist_items/song_item", item: item, setlist: setlist, song_number: song_number %>
+        <% else %>
+          <%= render "setlist_items/comment_item", item: item, setlist: setlist %>
+        <% end %>
+      <% end %>
+    </ol>
+  <% else %>
+    <div class="empty-state setlist-empty">
+      <p>Your setlist is empty. Add songs and comments below.</p>
+    </div>
+  <% end %>
+</div>

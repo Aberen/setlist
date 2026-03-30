@@ -1,0 +1,174 @@
+<div class="landing">
+
+  <%# Hero %>
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">For bands who take the stage seriously</div>
+      <h1 class="hero-headline">
+        Build setlists together.<br>
+        <span class="hero-headline-accent">In real time.</span>
+      </h1>
+      <p class="hero-sub">
+        SetlistApp is the collaborative setlist tool built for working bands.
+        Plan your set, track song durations, and watch changes sync live across every device in the room.
+      </p>
+      <div class="hero-actions">
+        <%= link_to "Get started free", new_user_registration_path, class: "btn btn-primary btn-lg" %>
+        <%= link_to "Sign in", new_user_session_path, class: "btn btn-secondary btn-lg" %>
+      </div>
+    </div>
+
+    <%# Fake setlist preview %>
+    <div class="hero-preview">
+      <div class="preview-card">
+        <div class="preview-header">
+          <span class="preview-title">World Tour 2024 — Night 1</span>
+          <span class="preview-duration">1h 23m</span>
+        </div>
+        <div class="preview-list">
+          <div class="preview-item preview-item--song">
+            <span class="preview-num">1.</span>
+            <span class="preview-song-title">Gimme Shelter</span>
+            <span class="preview-time">5:31</span>
+          </div>
+          <div class="preview-item preview-item--song">
+            <span class="preview-num">2.</span>
+            <span class="preview-song-title">Paint It Black</span>
+            <span class="preview-time">3:45</span>
+          </div>
+          <div class="preview-item preview-item--song">
+            <span class="preview-num">3.</span>
+            <span class="preview-song-title">Sympathy for the Devil</span>
+            <span class="preview-time">6:22</span>
+          </div>
+          <div class="preview-item preview-item--comment">
+            <span class="preview-comment">— INTERMISSION — 10:00</span>
+          </div>
+          <div class="preview-item preview-item--song">
+            <span class="preview-num">4.</span>
+            <span class="preview-song-title">Start Me Up</span>
+            <span class="preview-time">3:32</span>
+          </div>
+          <div class="preview-item preview-item--song">
+            <span class="preview-num">5.</span>
+            <span class="preview-song-title">Jumpin' Jack Flash</span>
+            <span class="preview-time">3:42</span>
+          </div>
+          <div class="preview-item preview-item--comment">
+            <span class="preview-comment">— ENCORE —</span>
+          </div>
+          <div class="preview-item preview-item--song">
+            <span class="preview-num">6.</span>
+            <span class="preview-song-title">Brown Sugar</span>
+            <span class="preview-time">3:49</span>
+          </div>
+        </div>
+        <div class="preview-footer">
+          <span class="preview-syncing">
+            <span class="preview-dot"></span>
+            3 band members viewing
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <%# Features %>
+  <section class="features">
+    <div class="features-grid">
+
+      <div class="feature-card">
+        <div class="feature-icon">🎸</div>
+        <h3 class="feature-title">Band management</h3>
+        <p class="feature-desc">
+          Create your band, invite members by email, and manage roles.
+          Everyone with access can contribute — no more setlist gatekeeping.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3 class="feature-title">Real-time collaboration</h3>
+        <p class="feature-desc">
+          Every change — a song added, a comment inserted, a reorder — syncs instantly
+          to everyone viewing the setlist. No refresh needed.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">⏱</div>
+        <h3 class="feature-title">Set duration estimator</h3>
+        <p class="feature-desc">
+          Add durations to songs and breaks. SetlistApp adds them up automatically
+          so you always know if you're running over your slot.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">↕️</div>
+        <h3 class="feature-title">Drag-and-drop ordering</h3>
+        <p class="feature-desc">
+          Reorder your setlist with a drag. Changes save and sync immediately.
+          Song numbers update automatically — comments don't count.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">💬</div>
+        <h3 class="feature-title">Comments &amp; breaks</h3>
+        <p class="feature-desc">
+          Insert comment blocks between songs — "ENCORE", "INTERMISSION", "KEY CHANGE".
+          Add a duration to breaks so they count toward your total set time.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📝</div>
+        <h3 class="feature-title">Per-setlist song notes</h3>
+        <p class="feature-desc">
+          Add a note to any song that's specific to a particular setlist.
+          "Extended outro tonight", "Capo 3 tonight" — different notes for different shows.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <%# How it works %>
+  <section class="how-it-works">
+    <h2 class="section-title">How it works</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Create your band</h3>
+          <p>Sign up, create a band, and invite your bandmates by email. They join with one click.</p>
+        </div>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Build your song library</h3>
+          <p>Add songs to your band with optional durations. Your full repertoire in one place.</p>
+        </div>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Build &amp; share setlists</h3>
+          <p>Create setlists, drag songs into order, add breaks, and watch the total duration calculate itself.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <%# CTA %>
+  <section class="cta">
+    <h2 class="cta-title">Ready to stop arguing about the setlist?</h2>
+    <p class="cta-sub">Free to use. No credit card required.</p>
+    <%= link_to "Create your band →", new_user_registration_path, class: "btn btn-primary btn-lg" %>
+  </section>
+
+</div>

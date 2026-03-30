@@ -1,0 +1,52 @@
+<div class="page-header">
+  <div class="page-header-left">
+    <h1><%= @setlist.name %></h1>
+    <span class="text-muted"><%= @band.name %></span>
+  </div>
+  <div class="page-header-actions">
+    <%= link_to "Edit Name", edit_setlist_path(@setlist), class: "btn btn-sm btn-secondary" %>
+    <%= link_to "← Band", band_path(@band), class: "btn btn-sm btn-secondary" %>
+  </div>
+</div>
+
+<div class="setlist-editor"
+     data-controller="setlist-sync"
+     data-setlist-sync-setlist-id-value="<%= @setlist.id %>">
+  <%= render "setlists/items_list", setlist: @setlist, items: @items %>
+
+  <div class="setlist-add-section">
+    <h3 class="setlist-add-title">Add to Setlist</h3>
+    <div class="setlist-add-row">
+
+      <%# Add Song %>
+      <%= form_with url: setlist_setlist_items_path(@setlist), class: "add-item-form" do |f| %>
+        <input type="hidden" name="setlist_item[item_type]" value="song">
+        <div class="form-group form-inline">
+          <%= f.label :song_id, "Add Song:", class: "form-label-inline" %>
+          <select name="setlist_item[song_id]" class="form-control form-control-inline">
+            <option value="">— select a song —</option>
+            <% @band_songs.each do |song| %>
+              <option value="<%= song.id %>">
+                <%= song.title %><% if song.duration_formatted %> (<%= song.duration_formatted %>)<% end %>
+              </option>
+            <% end %>
+          </select>
+          <%= f.submit "Add Song", class: "btn btn-primary btn-sm" %>
+        </div>
+      <% end %>
+
+      <%# Add Comment %>
+      <%= form_with url: setlist_setlist_items_path(@setlist), class: "add-item-form" do |f| %>
+        <input type="hidden" name="setlist_item[item_type]" value="comment">
+        <div class="form-group form-inline">
+          <%= f.label :content, "Add Comment:", class: "form-label-inline" %>
+          <input type="text" name="setlist_item[content]" class="form-control form-control-inline" placeholder="e.g. -- ENCORE --">
+          <input type="text" name="setlist_item[duration_input]" class="form-control" style="max-width: 80px;" placeholder="2:00">
+          <span class="text-light" style="white-space: nowrap;">duration (optional)</span>
+          <%= f.submit "Add Comment", class: "btn btn-secondary btn-sm" %>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>

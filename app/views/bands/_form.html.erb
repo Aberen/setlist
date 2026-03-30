@@ -1,0 +1,11 @@
+<%= form_with model: @band, class: "form" do |f| %>
+  <%= render "shared/errors", object: @band %>
+  <div class="form-group">
+    <%= f.label :name, "Band Name" %>
+    <%= f.text_field :name, class: "form-control", placeholder: "e.g. The Rolling Stones", autofocus: true %>
+  </div>
+  <div class="form-actions">
+    <%= f.submit @band.new_record? ? "Create Band" : "Update Band", class: "btn btn-primary" %>
+    <%= link_to "Cancel", @band.new_record? ? bands_path : band_path(@band), class: "btn btn-secondary" %>
+  </div>
+<% end %>

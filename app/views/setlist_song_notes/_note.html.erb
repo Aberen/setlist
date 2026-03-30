@@ -1,0 +1,17 @@
+<div id="note_song_<%= note.song_id %>" data-controller="inline-edit">
+  <span class="song-note-text" data-inline-edit-target="display">
+    📝 <%= note.content %>
+    <button class="btn-link" data-action="click->inline-edit#edit">Edit</button>
+  </span>
+  <div data-inline-edit-target="form" style="display:none;">
+    <%= form_with url: setlist_setlist_song_note_path(setlist, note), method: :patch do |f| %>
+      <textarea name="setlist_song_note[content]" rows="2" class="form-control"
+                data-inline-edit-target="input"
+                data-action="keydown->inline-edit#handleKey"><%= note.content %></textarea>
+      <div class="inline-form-actions">
+        <%= f.submit "Save", class: "btn btn-sm btn-primary" %>
+        <button type="button" class="btn btn-sm btn-secondary" data-action="click->inline-edit#cancel">Cancel</button>
+      </div>
+    <% end %>
+  </div>
+</div>

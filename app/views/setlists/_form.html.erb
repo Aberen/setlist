@@ -1,0 +1,11 @@
+<%= form_with model: defined?(@band) && @setlist.new_record? ? [@band, @setlist] : @setlist, class: "form" do |f| %>
+  <%= render "shared/errors", object: @setlist %>
+  <div class="form-group">
+    <%= f.label :name, "Setlist Name" %>
+    <%= f.text_field :name, class: "form-control", placeholder: "e.g. World Tour Night 1", autofocus: true %>
+  </div>
+  <div class="form-actions">
+    <%= f.submit @setlist.new_record? ? "Create Setlist" : "Update Setlist", class: "btn btn-primary" %>
+    <%= link_to "Cancel", @setlist.new_record? ? band_setlists_path(@band) : setlist_path(@setlist), class: "btn btn-secondary" %>
+  </div>
+<% end %>

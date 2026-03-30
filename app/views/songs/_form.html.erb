@@ -1,0 +1,27 @@
+<%= form_with model: [@band, @song], class: "form" do |f| %>
+  <%= render "shared/errors", object: @song %>
+
+  <div class="form-group">
+    <%= f.label :title, "Song Title" %>
+    <%= f.text_field :title, class: "form-control", placeholder: "e.g. Gimme Shelter", autofocus: true %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :duration_input, "Duration" %>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <input type="text"
+             name="song[duration_input]"
+             id="song_duration_input"
+             class="form-control"
+             style="max-width: 100px;"
+             value="<%= @song.duration_formatted %>"
+             placeholder="3:45">
+      <span class="text-light">mm:ss format</span>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit @song.new_record? ? "Add Song" : "Update Song", class: "btn btn-primary" %>
+    <%= link_to "Cancel", band_songs_path(@band), class: "btn btn-secondary" %>
+  </div>
+<% end %>

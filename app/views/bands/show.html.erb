@@ -1,0 +1,82 @@
+<div class="page-header">
+  <div>
+    <h1><%= @band.name %></h1>
+  </div>
+  <div class="page-header-actions">
+    <% if @band.owner?(current_user) %>
+      <%= link_to "Edit", edit_band_path(@band), class: "btn btn-sm btn-secondary" %>
+      <%= button_to "Delete", band_path(@band), method: :delete,
+          data: { turbo_confirm: "Delete #{@band.name}? This cannot be undone." }, class: "btn btn-sm btn-danger" %>
+    <% end %>
+  </div>
+</div>
+
+<div class="band-sections">
+  <section class="band-section">
+    <div class="section-header">
+      <h2>Members</h2>
+      <% if @band.owner?(current_user) %>
+        <%= link_to "Invite", new_band_invitation_path(@band), class: "btn btn-sm btn-primary" %>
+        <%= link_to "Manage", band_memberships_path(@band), class: "btn btn-sm btn-secondary" %>
+      <% end %>
+    </div>
+    <ul class="item-list">
+      <% @members.each do |member| %>
+        <li class="item-row">
+          <%= member.email %>
+          <% if @band.owner?(member) %><span class="badge badge-owner">Owner</span><% end %>
+        </li>
+      <% end %>
+    </ul>
+    <% if @pending_invitations.any? %>
+      <p class="text-muted" style="margin-top: 8px; font-size: 0.85rem;"><%= @pending_invitations.count %> pending invitation(s)</p>
+    <% end %>
+  </section>
+
+  <section class="band-section">
+    <div class="section-header">
+      <h2>Songs (<%= @songs.count %>)</h2>
+      <%= link_to "Add Song", new_band_song_path(@band), class: "btn btn-sm btn-primary" %>
+    </div>
+    <% if @songs.any? %>
+      <ul class="item-list">
+        <% @songs.each do |song| %>
+          <li class="item-row">
+            <span><%= song.title %></span>
+            <div class="row-actions">
+              <%= link_to "Edit",   edit_band_song_path(@band, song), class: "btn btn-sm btn-secondary" %>
+              <%= button_to "Delete", band_song_path(@band, song), method: :delete,
+                  data: { turbo_confirm: "Delete \"#{song.title}\"?" }, class: "btn btn-sm btn-danger" %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="text-muted">No songs yet. <%= link_to "Add one", new_band_song_path(@band) %>.</p>
+    <% end %>
+  </section>
+
+  <section class="band-section">
+    <div class="section-header">
+      <h2>Setlists (<%= @setlists.count %>)</h2>
+      <%= link_to "New Setlist", new_band_setlist_path(@band), class: "btn btn-sm btn-primary" %>
+    </div>
+    <% if @setlists.any? %>
+      <ul class="item-list">
+        <% @setlists.each do |setlist| %>
+          <li class="item-row">
+            <%= link_to setlist.name, setlist_path(setlist) %>
+            <div class="row-actions">
+              <%= link_to "Open", setlist_path(setlist), class: "btn btn-sm btn-primary" %>
+              <%= link_to "Edit Name", edit_setlist_path(setlist), class: "btn btn-sm btn-secondary" %>
+              <%= button_to "Delete", band_setlist_path(@band, setlist), method: :delete,
+                  data: { turbo_confirm: "Delete \"#{setlist.name}\"?" }, class: "btn btn-sm btn-danger" %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="text-muted">No setlists yet. <%= link_to "Create one", new_band_setlist_path(@band) %>.</p>
+    <% end %>
+  </section>
+</div>

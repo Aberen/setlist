@@ -1,0 +1,39 @@
+<% note = setlist.note_for(item.song) %>
+<li class="setlist-item setlist-item--song" id="setlist_item_<%= item.id %>" data-item-id="<%= item.id %>" data-position="<%= item.position %>">
+  <span class="drag-handle">⠿</span>
+  <span class="setlist-item-number"><%= song_number %>.</span>
+  <div class="setlist-item-content">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span class="song-title"><%= item.song.title %></span>
+      <% if item.song.duration_formatted %>
+        <span class="song-duration"><%= item.song.duration_formatted %></span>
+      <% end %>
+    </div>
+    <div id="note_song_<%= item.song_id %>">
+      <% if note %>
+        <%= render "setlist_song_notes/note", note: note, setlist: setlist %>
+      <% else %>
+        <div data-controller="inline-edit">
+          <button class="btn-link song-note-add" data-inline-edit-target="display" data-action="click->inline-edit#edit">+ Add note</button>
+          <div data-inline-edit-target="form" style="display:none;">
+            <%= form_with url: setlist_setlist_song_notes_path(setlist) do |f| %>
+              <input type="hidden" name="setlist_song_note[song_id]" value="<%= item.song_id %>">
+              <textarea name="setlist_song_note[content]" rows="2" class="form-control"
+                        placeholder="Note for this song in this setlist..."
+                        data-inline-edit-target="input"
+                        data-action="keydown->inline-edit#handleKey"></textarea>
+              <div class="inline-form-actions">
+                <%= f.submit "Save Note", class: "btn btn-sm btn-primary" %>
+                <button type="button" class="btn btn-sm btn-secondary" data-action="click->inline-edit#cancel">Cancel</button>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="setlist-item-actions">
+    <%= button_to "✕", setlist_setlist_item_path(setlist, item), method: :delete,
+          data: { turbo_confirm: "Remove #{item.song.title}?" }, class: "btn btn-sm btn-danger btn-icon" %>
+  </div>
+</li>

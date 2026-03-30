@@ -1,0 +1,15 @@
+<div class="page-header">
+  <h1>Members — <%= @band.name %></h1>
+</div>
+<ul class="item-list">
+  <% @memberships.each do |membership| %>
+    <li class="item-row">
+      <span><%= membership.user.email %> <span class="badge badge-owner"><%= membership.role %></span></span>
+      <% if membership.role != 'owner' %>
+        <%= button_to "Remove", band_membership_path(@band, membership), method: :delete,
+            data: { turbo_confirm: "Remove #{membership.user.email}?" }, class: "btn btn-sm btn-danger" %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+<%= link_to "← Back to Band", band_path(@band), class: "btn btn-secondary" style="margin-top: 16px;" %>

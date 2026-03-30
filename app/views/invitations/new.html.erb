@@ -1,0 +1,15 @@
+<div class="page-header">
+  <h1>Invite a Member</h1>
+  <span class="text-muted">to <%= @band.name %></span>
+</div>
+<%= form_with model: @invitation, url: band_invitations_path(@band), class: "form" do |f| %>
+  <%= render "shared/errors", object: @invitation %>
+  <div class="form-group">
+    <%= f.label :email, "Email Address" %>
+    <%= f.email_field :email, class: "form-control", placeholder: "bandmate@example.com", autofocus: true %>
+  </div>
+  <div class="form-actions">
+    <%= f.submit "Send Invitation", class: "btn btn-primary" %>
+    <%= link_to "Cancel", band_path(@band), class: "btn btn-secondary" %>
+  </div>
+<% end %>

@@ -1,0 +1,43 @@
+<div class="page-header">
+  <h1>All Setlists</h1>
+</div>
+
+<% if @bands_with_setlists.any? %>
+  <div class="cross-band-list">
+    <% @bands_with_setlists.each do |band| %>
+      <div class="cross-band-section">
+        <div class="cross-band-header">
+          <h2><%= link_to band.name, band_path(band), class: "cross-band-name" %></h2>
+          <%= link_to "New Setlist", new_band_setlist_path(band), class: "btn btn-sm btn-primary" %>
+        </div>
+
+        <% if band.setlists.any? %>
+          <div class="item-list">
+            <% band.setlists.sort_by(&:name).each do |setlist| %>
+              <div class="item-row">
+                <div class="item-row-main">
+                  <%= link_to setlist.name, setlist_path(setlist), class: "item-title item-title--link" %>
+                  <span class="text-light"><%= setlist.setlist_items.count %> items</span>
+                </div>
+                <div class="row-actions">
+                  <%= link_to "Open", setlist_path(setlist), class: "btn btn-sm btn-primary" %>
+                  <%= link_to "Edit", edit_setlist_path(setlist), class: "btn btn-sm btn-secondary" %>
+                  <%= button_to "Delete", band_setlist_path(band, setlist), method: :delete,
+                      data: { turbo_confirm: "Delete \"#{setlist.name}\"?" },
+                      class: "btn btn-sm btn-danger" %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <p class="text-light cross-band-empty">No setlists yet.</p>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="empty-state">
+    <p>You're not in any bands yet.</p>
+    <%= link_to "Create a band", new_band_path, class: "btn btn-primary" %>
+  </div>
+<% end %>

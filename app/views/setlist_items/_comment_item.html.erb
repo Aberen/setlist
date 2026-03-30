@@ -1,0 +1,48 @@
+<li class="setlist-item setlist-item--comment" id="setlist_item_<%= item.id %>" data-item-id="<%= item.id %>" data-position="<%= item.position %>">
+  <span class="drag-handle">⠿</span>
+  <div class="setlist-item-content" data-controller="inline-edit">
+
+    <%# Display mode %>
+    <div data-inline-edit-target="display" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+      <span class="comment-text"><%= item.content %></span>
+      <% if item.duration_formatted %>
+        <span class="song-duration">⏱ <%= item.duration_formatted %></span>
+      <% end %>
+      <button class="btn-link btn-link--subtle" data-action="click->inline-edit#edit">edit</button>
+    </div>
+
+    <%# Edit mode %>
+    <div data-inline-edit-target="form" style="display:none;">
+      <%= form_with url: setlist_setlist_item_path(setlist, item), method: :patch do |f| %>
+        <input type="hidden" name="setlist_item[item_type]" value="comment">
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <input type="text"
+                 name="setlist_item[content]"
+                 value="<%= item.content %>"
+                 class="form-control"
+                 placeholder="Comment text"
+                 data-inline-edit-target="input"
+                 data-action="keydown->inline-edit#handleKey">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <input type="text"
+                   name="setlist_item[duration_input]"
+                   value="<%= item.duration_formatted %>"
+                   class="form-control"
+                   style="max-width: 90px;"
+                   placeholder="2:00">
+            <span class="text-light">duration (optional)</span>
+          </div>
+          <div class="inline-form-actions">
+            <%= f.submit "Save", class: "btn btn-sm btn-primary" %>
+            <button type="button" class="btn btn-sm btn-secondary" data-action="click->inline-edit#cancel">Cancel</button>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+  <div class="setlist-item-actions">
+    <%= button_to "✕", setlist_setlist_item_path(setlist, item), method: :delete,
+          data: { turbo_confirm: "Remove this comment?" }, class: "btn btn-sm btn-danger btn-icon" %>
+  </div>
+</li>
