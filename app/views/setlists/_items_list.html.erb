@@ -29,6 +29,12 @@
           <span class="duration-label">Breaks</span>
           <span class="duration-value"><%= comment_count %></span>
         </div>
+        <%# Live viewers badge %>
+        <div class="duration-stat duration-stat--live" id="live-viewers-badge" style="display: none;">
+          <span class="duration-dot"></span>
+          <span class="duration-value" data-setlist-sync-target="viewerCount">1</span>
+          <span class="duration-label">viewing</span>
+        </div>
       </div>
     </div>
   <% end %>

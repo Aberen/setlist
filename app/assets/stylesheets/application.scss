@@ -867,6 +867,26 @@ html.dark .theme-toggle .theme-toggle-icon::before { content: "🌙"; }
   padding: 1px 6px;
 }
 
+// Live viewers badge
+.duration-stat--live {
+  display: inline-flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 6px;
+  margin-left: auto;
+  padding-left: 20px;
+  border-left: 1px solid var(--border);
+}
+
+.duration-dot {
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
 // -----------------------------------------------------------------------------
 // Cross-band index pages (All Songs, All Setlists)
 // -----------------------------------------------------------------------------
